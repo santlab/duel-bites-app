@@ -1,0 +1,29 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "Shared utilities and types for the Duel Bites application.",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "typescript": "^4.5.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/duel-bites-app.git"
+  },
+  "keywords": [
+    "duel",
+    "bites",
+    "shared",
+    "utilities",
+    "types"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

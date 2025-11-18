@@ -1,0 +1,13 @@
+model ClassStats {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  wins      Int     @default(0)
+}
+
+model Duel {
+  id          Int       @id @default(autoincrement())
+  player1     String
+  player2     String
+  winner      String
+  createdAt   DateTime  @default(now())
+}

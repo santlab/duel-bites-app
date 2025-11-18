@@ -1,0 +1,36 @@
+import React, { useState } from 'react';
+
+const CharacterSelect = ({ onSelect }) => {
+    const [selectedClass, setSelectedClass] = useState(null);
+    const classes = [
+        { name: 'torta', image: '/images/torta.png' },
+        { name: 'bolo', image: '/images/bolo.png' },
+        { name: 'churrasco', image: '/images/churrasco.png' },
+    ];
+
+    const handleSelect = (className) => {
+        setSelectedClass(className);
+        onSelect(className);
+    };
+
+    return (
+        <div className="character-select">
+            <h2>Select Your Character</h2>
+            <div className="classes">
+                {classes.map((character) => (
+                    <div
+                        key={character.name}
+                        className={`class-option ${selectedClass === character.name ? 'selected' : ''}`}
+                        onClick={() => handleSelect(character.name)}
+                    >
+                        <img src={character.image} alt={character.name} />
+                        <span>{character.name}</span>
+                    </div>
+                ))}
+            </div>
+            {selectedClass && <p>You have selected: {selectedClass}</p>}
+        </div>
+    );
+};
+
+export default CharacterSelect;

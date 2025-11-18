@@ -1,0 +1,45 @@
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+const CharacterSelect = ({ onSelect }) => {
+  const [selectedClass, setSelectedClass] = useState(null);
+
+  const classes = [
+    { name: 'Torta', wins: 0 },
+    { name: 'Bolo', wins: 0 },
+    { name: 'Churrasco', wins: 0 },
+  ];
+
+  const handleSelect = (character) => {
+    setSelectedClass(character);
+    onSelect(character);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Escolha sua Classe</Text>
+      {classes.map((character) => (
+        <Button
+          key={character.name}
+          title={`${character.name} (${character.wins} wins)`}
+          onPress={() => handleSelect(character.name)}
+          color={selectedClass === character.name ? 'blue' : 'gray'}
+        />
+      ))}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+});
+
+export default CharacterSelect;

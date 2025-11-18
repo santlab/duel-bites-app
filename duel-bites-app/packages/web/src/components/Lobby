@@ -1,0 +1,62 @@
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+const Lobby = () => {
+    const [player1Class, setPlayer1Class] = useState(null);
+    const [player2Class, setPlayer2Class] = useState(null);
+    const [isReady, setIsReady] = useState(false);
+    const history = useHistory();
+
+    const classes = ['torta', 'bolo', 'churrasco'];
+
+    const handleClassSelect = (player, selectedClass) => {
+        if (player === 1) {
+            setPlayer1Class(selectedClass);
+        } else {
+            setPlayer2Class(selectedClass);
+        }
+    };
+
+    useEffect(() => {
+        if (player1Class && player2Class) {
+            setIsReady(true);
+        }
+    }, [player1Class, player2Class]);
+
+    const startDuel = () => {
+        if (isReady) {
+            history.push('/battle', { player1Class, player2Class });
+        }
+    };
+
+    return (
+        <div className="lobby">
+            <h1>Lobby</h1>
+            <div className="player-selection">
+                <div>
+                    <h2>Player 1</h2>
+                    {classes.map((className) => (
+                        <button key={className} onClick={() => handleClassSelect(1, className)}>
+                            {className}
+                        </button>
+                    ))}
+                    <p>Selected: {player1Class}</p>
+                </div>
+                <div>
+                    <h2>Player 2</h2>
+                    {classes.map((className) => (
+                        <button key={className} onClick={() => handleClassSelect(2, className)}>
+                            {className}
+                        </button>
+                    ))}
+                    <p>Selected: {player2Class}</p>
+                </div>
+            </div>
+            <button onClick={startDuel} disabled={!isReady}>
+                Start Duel
+            </button>
+        </div>
+    );
+};
+
+export default Lobby;

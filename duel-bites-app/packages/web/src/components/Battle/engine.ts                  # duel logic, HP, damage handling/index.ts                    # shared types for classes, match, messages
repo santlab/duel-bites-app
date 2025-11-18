@@ -1,0 +1,40 @@
+// duel logic, HP, damage handling
+import { ClassType, MatchResult } from '../../../shared/src/types';
+
+interface Player {
+    id: string;
+    classType: ClassType;
+    health: number;
+    wins: number;
+}
+
+class BattleEngine {
+    private player1: Player;
+    private player2: Player;
+    private damagePerHit: number = 10;
+
+    constructor(player1: Player, player2: Player) {
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
+    public attack(attacker: Player, defender: Player): MatchResult {
+        defender.health -= this.damagePerHit;
+        if (defender.health <= 0) {
+            this.endBattle(attacker);
+            return { winner: attacker, loser: defender };
+        }
+        return { winner: null, loser: null };
+    }
+
+    private endBattle(winner: Player): void {
+        winner.wins += 1;
+        // Logic to update the database with the new win count can be added here
+    }
+
+    public getPlayerHealth(player: Player): number {
+        return player.health;
+    }
+}
+
+export default BattleEngine;

@@ -1,0 +1,19 @@
+export type ClassName = 'torta' | 'bolo' | 'churrasco';
+
+export interface Player {
+    id: string;
+    name: string;
+    selectedClass: ClassName;
+    health: number;
+}
+
+export interface DuelResult {
+    winner: Player;
+    loser: Player;
+    damageDealt: number;
+}
+
+export interface ClassStats {
+    className: ClassName;
+    wins: number;
+}

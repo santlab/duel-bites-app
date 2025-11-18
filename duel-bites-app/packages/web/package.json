@@ -1,0 +1,25 @@
+{
+  "name": "duel-bites-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "socket.io-client": "^4.0.0",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.6.0",
+    "ts-loader": "^8.0.0",
+    "typescript": "^4.1.2"
+  }
+}

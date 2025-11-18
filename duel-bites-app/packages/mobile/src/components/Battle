@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, Animated } from 'react-native';
+
+const Battle = ({ player1Class, player2Class, onBattleEnd }) => {
+    const [player1HP, setPlayer1HP] = useState(100);
+    const [player2HP, setPlayer2HP] = useState(100);
+    const [winner, setWinner] = useState(null);
+    const [damageAnimation, setDamageAnimation] = useState(new Animated.Value(0));
+
+    useEffect(() => {
+        if (player1HP <= 0) {
+            setWinner(player2Class);
+            onBattleEnd(player2Class);
+        } else if (player2HP <= 0) {
+            setWinner(player1Class);
+            onBattleEnd(player1Class);
+        }
+    }, [player1HP, player2HP]);
+
+    const handleAttack = (attacker) => {
+        const damage = Math.floor(Math.random() * 20) + 1;
+        if (attacker === 'player1') {
+            setPlayer2HP((prevHP) => Math.max(prevHP - damage, 0));
+            animateDamage();
+        } else {
+            setPlayer1HP((prevHP) => Math.max(prevHP - damage, 0));
+            animateDamage();
+        }
+    };
+
+    const animateDamage = () => {
+        setDamageAnimation(new Animated.Value(0));
+        Animated.timing(damageAnimation, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start(() => {
+            damageAnimation.setValue(0);
+        });
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Battle!</Text>
+            <View style={styles.healthBars}>
+                <Text>{player1Class}: {player1HP} HP</Text>
+                <Text>{player2Class}: {player2HP} HP</Text>
+            </View>
+            <View style={styles.buttons}>
+                <Button title="Attack Player 2" onPress={() => handleAttack('player1')} />
+                <Button title="Attack Player 1" onPress={() => handleAttack('player2')} />
+            </View>
+            {winner && <Text style={styles.winner}>Winner: {winner}</Text>}
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    healthBars: {
+        marginVertical: 20,
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '80%',
+    },
+    winner: {
+        fontSize: 20,
+        color: 'green',
+        marginTop: 20,
+    },
+});
+
+export default Battle;
